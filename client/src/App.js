@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './App.css';
 
+
+//import components 
+import Nav from './components/Nav';
+import Courses from './components/Courses';
+import NotFound from './components/NotFound';
+import CourseDetail from './components/CourseDetail/CourseDetail';
+
+
 class App extends Component {
+  state = {
+    loading : false,
+    courses : []
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Router>
+          <>
+            <Nav />
+            <Switch>
+              <Route exact path="/" component={Courses}/>
+              <Route path="/courses/:id" component={CourseDetail}/>
+              <Route component={NotFound}/>
+            </Switch>
+          </>
+        </Router>
       </div>
     );
   }
