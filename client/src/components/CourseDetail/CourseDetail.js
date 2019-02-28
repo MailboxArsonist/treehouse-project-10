@@ -27,7 +27,7 @@ class CourseDetail extends Component {
       render () {
           return (
             <div>
-                <ActionBar />
+                <ActionBar courseId={this.state.course._id}/>
                 <div className="bounds course--detail">
                   {this.state.loading ? <h1>Loading</h1> : 
                     <>
