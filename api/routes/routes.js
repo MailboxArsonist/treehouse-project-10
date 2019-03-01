@@ -26,18 +26,18 @@ const authenticateUser = (req, res, next) => {
                         next();
                     } else {
                         //incorrect password => access denied
-                        res.status(401).json({ 'Incorrect Password': 'Access Denied' });
+                        res.status(403).json({ 'Incorrect Password': 'Access Denied' });
                     }
                 } else {
                     ////No user found => Access denied
-                    res.status(401).json({ 'No user found': 'Access Denied' });
+                    res.status(403).json({ 'No user found': 'Access Denied' });
                 }
             })
             .catch(err => {
                 console.log(err);
             });
     } else {
-        res.status(401).json({ 'No email/password entered': 'Access Denied' });
+        res.status(403).json({ 'No email/password entered': 'Access Denied' });
     }
 };
 
