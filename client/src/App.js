@@ -25,6 +25,7 @@ class App extends Component {
   }
 
   signIn = (username, password, name, authenticated) => {
+    console.log(name)
     if(authenticated){
       this.setState({
         authenticated,
@@ -36,27 +37,39 @@ class App extends Component {
       this.setState({
         authenticated : false,
         username : null,
-        password : null
+        password : null,
+        name : null
       })
     }
-    
+  }
+
+  signOut = () => {
+    this.setState({
+      authenticated: null,
+      username: null,
+      password: null,
+      name : null
+    })
   }
   
   
   render() {
-
+    console.log('rendered app');
+    console.log(this.state.name)
     return (
       <div>
         <Router>
           <>
-            <Nav name={this.state.name}/>
+            <Nav name={this.state.name} signOut={this.signOut}/>
             {this.state.authenticated === false && <Forbidden />}
             <Switch>
               <Route exact path="/" component={Courses}/>
               <Route exact path="/create" component={CreateCourse}/>
               <Route exact path="/courses/:id" component={CourseDetail}/>
               <Route exact path="/courses/:id/update" component={UpdateCourse}/>
-              <Route exact path="/signup" component={UserSignUp}/>
+              <Route exact path="/signup" render={props => (
+                <UserSignUp authenticateUser={this.signIn}/>
+              )}/>
               <Route exact path="/signin" render={props => (
                 <UserSignIn authenticateUser={this.signIn}/>
               )}/>
