@@ -1,20 +1,71 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class UpdateCourse extends Component {
+    state = {
+        loading : true,
+        title : '',
+        description : '',
+        estimatedTime : '',
+        materialsNeeded : '',
+        user : ''
+      }
+    
+    componentWillMount() {
+        const query = this.props.match.params.id;
+        axios.get(`http://localhost:5000/api/courses/${query}`)
+              .then(result => {
+                const { title, description, estimatedTime, materialsNeeded } = result.data;
+                const user = result.data.user._id;
+                this.setState({
+                  loading : false,
+                  title,
+                  description,
+                  estimatedTime,
+                  materialsNeeded,
+                  user
+                })
+              })
+              .catch(err => console.log(err))
+    }
+
+    //handles submit
+    handleSubmit = (e) => {
+        e.preventDefault();
+        //prevent default
+        //check 
+        //post to API
+    }
+    //handles interaction on inputs, updates the state that matches the input name
+    handleChange = (e) => {
+        //validateForm(e.target.name, e.target.value)
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
     render(){
+
+        //what do i need to do
+        //1. handler on each input, setState with input value.
+        //2. handler on form, prevent default
+        //3. Check required inputs are filled in
+        //4.post request to api with state.
+        //what problems do I have?
+        //When a user has nothing, the placeholder comes back, maybe the handler will change this
         return(
             <div className="bounds course--detail">
                 <h1>Update Course</h1>
                 <div>
-                    <form>
+                    <form onSubmit={this.handleSubmit} >
                         <div className="grid-66">
                             <div className="course--header">
                                 <h4 className="course--label">Course</h4>
-                                <div><input id="title" name="title" type="text" className="input-title course--title--input" placeholder="Course title..." value="Build a Basic Bookcase" /></div>
-                                <p>By Joe Smith</p>
+                                <div><input onChange={this.handleChange} id="title" name="title" type="text" className="input-title course--title--input" placeholder={this.state.title} value={this.state.title}/></div>
+                                {/* <p>By {this.state.course.user.firstName} {this.state.course.user.lastName}</p> */}
                             </div>
                             <div className="course--description">
-                                <div><textarea id="description" name="description" className="" placeholder="Course description..."></textarea></div>
+                                <div><textarea onChange={this.handleChange} id="description" name="description" className="" placeholder={this.state.description} value={this.state.description}></textarea></div>
                             </div>
                         </div>
                         <div className="grid-25 grid-right">
@@ -22,16 +73,16 @@ class UpdateCourse extends Component {
                                 <ul className="course--stats--list">
                                     <li className="course--stats--list--item">
                                         <h4>Estimated Time</h4>
-                                        <div><input id="estimatedTime" name="estimatedTime" type="text" className="course--time--input" placeholder="Hours" value="14 hours" /></div>
+                                        <div><input onChange={this.handleChange} id="estimatedTime" name="estimatedTime" type="text" className="course--time--input" placeholder={this.state.estimatedTime} value={this.state.estimatedTime}/></div>
                                     </li>
                                     <li className="course--stats--list--item">
                                         <h4>Materials Needed</h4>
-                                        <div><textarea id="materialsNeeded" name="materialsNeeded" className="" placeholder="List materials..."></textarea></div>
+                                        <div><textarea onChange={this.handleChange} id="materialsNeeded" name="materialsNeeded" className="" placeholder={this.state.materialsNeeded} value={this.state.materialsNeeded}></textarea></div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="grid-100 pad-bottom"><button className="button" type="submit">Update Course</button><button className="button button-secondary" onclick="event.preventDefault(); location.href='course-detail.html';">Cancel</button></div>
+                        <div className="grid-100 pad-bottom"><button className="button" type="submit">Update Course</button><button className="button button-secondary">Cancel</button></div>
                     </form>
                 </div>
             </div>
