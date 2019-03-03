@@ -12,7 +12,6 @@ import UserSignUp from './components/User/UserSignUp';
 import UserSignIn from './components/User/UserSignIn';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/CourseDetail/UpdateCourse';
-import Forbidden from './components/Errors/Forbidden';
 
 
 
@@ -61,7 +60,6 @@ class App extends Component {
         <Router>
           <>
             <Nav name={this.state.name} signOut={this.signOut}/>
-            {this.state.authenticated === false && <Forbidden />}
             <Switch>
               <Route exact path="/" component={Courses}/>
               <Route exact path="/create" component={CreateCourse}/>
