@@ -11,23 +11,22 @@ class UserSignUp extends Component {
         password: '',
         confirmPassword: '',
         alreadyExists: false,
-        validFirstName: null,
-        validLastName: null,
-        validEmail: null,
-        validPassword: null,
+        attemptedSubmit: false
     }
 
     //handles submit of form
     handleSubmit = (e) => {
         e.preventDefault();
-        const {emailAddress, password, firstName, lastName, confirmPassword} = this.state;
-        if(emailAddress !== '' && password !== '' && firstName !== '' && lastName !== '' && password === confirmPassword){
+        const {emailAddress, password, firstName, lastName} = this.state;
+        //call validators
+        if(this.isValid('firstName') && this.isValid('lastName') && this.isValid('emailAddress') && this.isValid('password') && this.isValid('confirmPassword')){
             //all good, make the request
             axios.post('http://localhost:5000/api/users', {
                 firstName,
                 lastName,
                 emailAddress,
-                password
+                password,
+                attemptedSubmit : true
             })
               .then(res => {
                   this.props.authenticateUser(emailAddress, password, firstName, true );
@@ -40,9 +39,12 @@ class UserSignUp extends Component {
                   }
                 console.log(err.response);
               });
+        }else {
+            console.log(this.isValid(firstName))
+            this.setState({attemptedSubmit: true});
         }
     }
-
+    //Checks 'alreadyExists' property to see if a user has an account already
     checkIfExists = () => {
         if(this.state.alreadyExists){
             return(
@@ -54,35 +56,57 @@ class UserSignUp extends Component {
     }
     //handles interaction on inputs, updates the state that matches the input name
     handleChange = (e) => {
+        //validateForm(e.target.name, e.target.value)
         this.setState({
             [e.target.name]: e.target.value
         });
     }
-    //check for a valid email address
-    isValidEmail = (email) => {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
+    //@param => String => Name of input type
+    isValid = (inputName) => {
+        const email = this.state.emailAddress;
+        const pass = this.state.password;
+        const confirmPass = this.state.confirmPassword;
+        const fName = this.state.firstName;
+        const lName = this.state.lastName;
+        switch (inputName) {
+            case 'emailAddress':
+                return /^[^@]+@[^@.]+\.[a-z]+$/.test(email);
+            case 'password':
+                return /^(?=.*\d).{8,}$/.test(pass); 
+            case 'confirmPassword':
+                return  pass === confirmPass;                     
+            case 'firstName':
+                return /^[a-z A-Z]+$/.test(fName);
+            case 'lastName':
+                return /^[a-z A-Z]+$/.test(lName);
+            default:
+                break;
+        }
     }
-    //check for firstname & lastname
-    isValidName = (name) => {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(name);
+    //Will return an error message if the user tries to submit the form without all inputs correctly filled out
+    errorMessage = (name, errorMessage) => {
+        if(this.state.attemptedSubmit && !this.isValid(name)){
+            //form has been submitted and this input was incorrectly filled in.
+            return <label>{errorMessage}</label>
+        } else {
+            return null;
+        }
     }
-    //check for a valid password
 
     render(){
-        console.log('rendered signup')
+        console.log('rendered signup');
         return(
             <div className="bounds">
                 <div className="grid-33 centered signin">
                     <h1>Sign Up</h1>
                     <div>
                         <form onSubmit={this.handleSubmit}>
-                            <div>{this.checkIfExists()}<input onChange={this.handleChange} id="firstName" name="firstName" type="text" className="" placeholder="First Name" /></div>
-                            <div><input onChange={this.handleChange} id="lastName" name="lastName" type="text" className="" placeholder="Last Name" /></div>
-                            <div><input onChange={this.handleChange} id="emailAddress" name="emailAddress" type="text" className="" placeholder="Email Address" /></div>
-                            <div><input onChange={this.handleChange} id="password" name="password" type="password" className="" placeholder="Password" /></div>
-                            <div><input onChange={this.handleChange} id="confirmPassword" name="confirmPassword" type="password" className="" placeholder="Confirm Password" /></div>
+                            {this.checkIfExists()}
+                            <div>{this.errorMessage('firstName', 'Required Field')}<input onChange={this.handleChange} id="firstName" name="firstName" type="text" className="" placeholder="First Name" /></div>
+                            <div>{this.errorMessage('lastName','Required Field')}<input onChange={this.handleChange} id="lastName" name="lastName" type="text" className="" placeholder="Last Name" /></div>
+                            <div>{this.errorMessage('emailAddress','Required Field')}<input onChange={this.handleChange} id="emailAddress" name="emailAddress" type="text" className="" placeholder="Email Address" /></div>
+                            <div>{this.errorMessage('password','Required Field')}<input onChange={this.handleChange} id="password" name="password" type="password" className="" placeholder="Password" /></div>
+                            <div>{this.errorMessage('confirmPassword','Required Field')}<input onChange={this.handleChange} id="confirmPassword" name="confirmPassword" type="password" className="" placeholder="Confirm Password" /></div>
                             <div className="grid-100 pad-bottom"><button className="button" type="submit">Sign Up</button><button className="button button-secondary">Cancel</button></div>
                         </form>
                     </div>
