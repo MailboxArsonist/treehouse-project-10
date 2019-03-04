@@ -6,7 +6,7 @@ const Nav = (props) => {
     return (
       <div className="header">
         <div className="bounds">
-          <h1 className="header--logo">Courses</h1>
+          <Link to="/"><h1 className="header--logo">Courses</h1></Link>
           <nav>{props.name ?
                 <div>
                   <span>Welcome {props.name}</span>
