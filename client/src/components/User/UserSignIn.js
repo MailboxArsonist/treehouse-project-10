@@ -26,9 +26,11 @@ class UserSignIn extends Component {
 					if (res.status === 200 || res.status === 304) {
 						const name = res.data[0].firstName;
 						this.props.authenticateUser(emailAddress, password, name, true);
+						this.props.history.push('/');
 					}
 				})
 				.catch(err => {
+					console.log(err)
 					//come back to here and add in the
 					if (err.response.status === 403) {
 						this.setState({

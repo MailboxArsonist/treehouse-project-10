@@ -25,8 +25,7 @@ class UserSignUp extends Component {
                 firstName,
                 lastName,
                 emailAddress,
-                password,
-                attemptedSubmit : true
+                password
             })
               .then(res => {
                   this.props.authenticateUser(emailAddress, password, firstName, true );
