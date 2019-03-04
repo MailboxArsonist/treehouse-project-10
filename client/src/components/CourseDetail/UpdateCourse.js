@@ -12,8 +12,8 @@ class UpdateCourse extends Component {
       }
     
     componentWillMount() {
-        const query = this.props.match.params.id;
-        axios.get(`http://localhost:5000/api/courses/${query}`)
+        const courseId = this.props.match.params.id;
+        axios.get(`http://localhost:5000/api/courses/${courseId}`)
               .then(result => {
                 const { title, description, estimatedTime, materialsNeeded } = result.data;
                 const user = result.data.user._id;
@@ -23,7 +23,8 @@ class UpdateCourse extends Component {
                   description,
                   estimatedTime,
                   materialsNeeded,
-                  user
+                  user,
+                  courseId
                 })
               })
               .catch(err => console.log(err))
@@ -31,9 +32,28 @@ class UpdateCourse extends Component {
 
     //handles submit
     handleSubmit = (e) => {
-        e.preventDefault();
         //prevent default
-        //check 
+        e.preventDefault();
+        //destructure state
+        const { title, description, estimatedTime, materialsNeeded, user, courseId} = this.state;
+        //check validation of inputs
+        if(title !== '' && description !== '' && estimatedTime !== '' && materialsNeeded !== '' && user !== ''){
+            //everything is good, lets make a PUT req.
+            axios({
+                method : 'put',
+                url : `http://localhost:5000/api/courses/${courseId}`,
+                auth: {
+                    username: this.props.user.username,
+                    password: this.props.user.password
+                  },
+                data : {
+                    title,
+                    description,
+                    estimatedTime,
+                    materialsNeeded,
+                }
+            })
+        }
         //post to API
     }
     //handles interaction on inputs, updates the state that matches the input name
@@ -50,9 +70,11 @@ class UpdateCourse extends Component {
         //1. handler on each input, setState with input value.
         //2. handler on form, prevent default
         //3. Check required inputs are filled in
+        //--Add a method that prints a required message
         //4.post request to api with state.
         //what problems do I have?
         //When a user has nothing, the placeholder comes back, maybe the handler will change this
+        //Adding clientside validation means I don't do anything with the err.res. Add a catch that does the same as validation could be a solution
         return(
             <div className="bounds course--detail">
                 <h1>Update Course</h1>
