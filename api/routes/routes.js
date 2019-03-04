@@ -26,18 +26,18 @@ const authenticateUser = (req, res, next) => {
                         next();
                     } else {
                         //incorrect password => access denied
-                        res.status(403).json({ 'Incorrect Password': 'Access Denied' });
+                        res.status(403).json({ 'accessDenied': 'Looks like your email/password is wrong...' });
                     }
                 } else {
                     ////No user found => Access denied
-                    res.status(403).json({ 'No user found': 'Access Denied' });
+                    res.status(403).json({ 'accessDenied': 'Oops, we don\'t recognise that email address' });
                 }
             })
             .catch(err => {
                 console.log(err);
             });
     } else {
-        res.status(403).json({ 'No email/password entered': 'Access Denied' });
+        res.status(403).json({ 'accessDenied': 'No email/password entered' });
     }
 };
 
@@ -45,7 +45,7 @@ const authenticateUser = (req, res, next) => {
 
 //GET for /api/users, *** user needs authenticating first
 router.get('/users', authenticateUser, (req, res) => {
-    res.json(req.currentUser);
+    res.status(200).json(req.currentUser);
 });
 
 //POST for /api/users
@@ -107,7 +107,7 @@ router.get('/courses', (req, res, next) => {
 router.get('/courses/:id', (req, res, next) => {
     const id = req.params.id;
     Course.findById(id)
-    .populate({ path: 'user', select: ['firstName','lastName' ] })
+    .populate({ path: 'user', select: ['firstName','lastName', '_id' ] })
     .then((course) => {
         if(!course){
             let error = new Error('No results in db for courses');
