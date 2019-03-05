@@ -52,9 +52,13 @@ class UpdateCourse extends Component {
                     estimatedTime,
                     materialsNeeded,
                 }
+            }).then(() => {
+                //redirect to updated course detail
+                this.props.history.push(`/courses/${this.state.courseId}`);
+            }).catch(err => {
+                console.log(err);
             })
         }
-        //post to API
     }
     //handles interaction on inputs, updates the state that matches the input name
     handleChange = (e) => {
