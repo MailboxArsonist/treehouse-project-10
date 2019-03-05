@@ -12,70 +12,38 @@ import UserSignUp from './components/User/UserSignUp';
 import UserSignIn from './components/User/UserSignIn';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/CourseDetail/UpdateCourse';
+import PrivateRoute from './components/PrivateRoute';
+import UserProvider from './context/UserProvider';
 
 
 
 class App extends Component {
-  state = {
-    authenticated : null,
-    username : null,
-    password : null,
-    name : null
-  }
-
-  signIn = (username, password, name, authenticated) => {
-    console.log(name)
-    if(authenticated){
-      this.setState({
-        authenticated,
-        username,
-        name,
-        password
-      })
-    } else {
-      this.setState({
-        authenticated : false,
-        username : null,
-        password : null,
-        name : null
-      })
-    }
-  }
-
-  signOut = () => {
-    this.setState({
-      authenticated: null,
-      username: null,
-      password: null,
-      name : null
-    })
-  }
   
   
   render() {
     console.log('rendered app');
-    console.log(this.state.name)
     return (
-      <div>
+      <UserProvider>
         <Router>
           <>
-            <Nav name={this.state.name} signOut={this.signOut}/>
+            <Nav/>
+
             <Switch>
               <Route exact path="/" component={Courses}/>
-              <Route exact path="/create" component={CreateCourse}/>
+
+              <PrivateRoute exact path="/courses/create" component={CreateCourse}/>
+              <PrivateRoute exact path="/courses/:id/update" component={UpdateCourse}/>
+
               <Route exact path="/courses/:id" component={CourseDetail}/>
-              <Route exact path="/courses/:id/update" component={UpdateCourse}/>
-              <Route exact path="/signup" render={props => (
-                <UserSignUp authenticateUser={this.signIn}/>
-              )}/>
-              <Route exact path="/signin" render={props => (
-                <UserSignIn authenticateUser={this.signIn}/>
-              )}/>
+
+              <Route exact path="/signup" component={UserSignUp}/>
+              <Route exact path="/signin" component={UserSignIn}/>
+
               <Route component={NotFound}/>
             </Switch>
           </>
         </Router>
-      </div>
+      </UserProvider>
     );
   }
 }
