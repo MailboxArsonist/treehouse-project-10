@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {UserContext} from '../../context/UserProvider';
 
 class UserSignIn extends Component {
 	state = {
@@ -25,8 +26,10 @@ class UserSignIn extends Component {
 				.then(res => {
 					if (res.status === 200 || res.status === 304) {
 						const name = res.data[0].firstName;
-						this.props.authenticateUser(emailAddress, password, name, true);
-						this.props.history.push('/');
+						const userId = res.data[0]._id;
+						this.context.signIn(emailAddress, password, name, true, userId);
+						const path = (this.props.location.state.from || '/')
+						this.props.history.push(path);
 					}
 				})
 				.catch(err => {
@@ -96,7 +99,7 @@ class UserSignIn extends Component {
 								<button className="button" type="submit">
 									Sign In
 								</button>
-								<button className="button button-secondary">Cancel</button>
+								<Link className="button button-secondary" to="/">Cancel</Link>
 							</div>
 						</form>
 					</div>
@@ -107,5 +110,5 @@ class UserSignIn extends Component {
 		);
 	}
 }
-
+UserSignIn.contextType = UserContext;
 export default UserSignIn;

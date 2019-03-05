@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import {UserContext} from '../../context/UserProvider';
 
 class UserSignUp extends Component {
     state = {
@@ -28,7 +28,9 @@ class UserSignUp extends Component {
                 password
             })
               .then(res => {
-                  this.props.authenticateUser(emailAddress, password, firstName, true );
+                  const userId = res.data[0]._id;
+                  this.context.signIn(emailAddress, password, firstName, true, userId );
+                  this.props.history.push('/');
               })
               .catch(err => {
                   //check if error is conflict(already existing user)
@@ -43,6 +45,7 @@ class UserSignUp extends Component {
             this.setState({attemptedSubmit: true});
         }
     }
+
     //Checks 'alreadyExists' property to see if a user has an account already
     checkIfExists = () => {
         if(this.state.alreadyExists){
@@ -53,6 +56,7 @@ class UserSignUp extends Component {
             return null;
         }
     }
+
     //handles interaction on inputs, updates the state that matches the input name
     handleChange = (e) => {
         //validateForm(e.target.name, e.target.value)
@@ -106,7 +110,7 @@ class UserSignUp extends Component {
                             <div>{this.errorMessage('emailAddress','Required Field')}<input onChange={this.handleChange} id="emailAddress" name="emailAddress" type="text" className="" placeholder="Email Address" /></div>
                             <div>{this.errorMessage('password','Required Field')}<input onChange={this.handleChange} id="password" name="password" type="password" className="" placeholder="Password" /></div>
                             <div>{this.errorMessage('confirmPassword','Required Field')}<input onChange={this.handleChange} id="confirmPassword" name="confirmPassword" type="password" className="" placeholder="Confirm Password" /></div>
-                            <div className="grid-100 pad-bottom"><button className="button" type="submit">Sign Up</button><button className="button button-secondary">Cancel</button></div>
+                            <div className="grid-100 pad-bottom"><button className="button" type="submit">Sign Up</button><Link className="button button-secondary" to="/">Cancel</Link></div>
                         </form>
                     </div>
                     <p>&nbsp;</p>
@@ -116,5 +120,5 @@ class UserSignUp extends Component {
         )
     }
 }
-
+UserSignUp.contextType = UserContext;
 export default UserSignUp;

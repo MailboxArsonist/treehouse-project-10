@@ -751,3 +751,17 @@ input:focus {
 .course--description textarea {
   margin-bottom: 20px;
 }
+
+/* Styles the signup 'duplicate account' message */
+.validation--duplicate {
+  color: black;
+  font-size: 18px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.validation--duplicate a {
+  color: #7c689b;
+}
+.validation--duplicate a:hover {
+  color: #7f50c5;
+}
