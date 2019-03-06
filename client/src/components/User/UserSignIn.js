@@ -28,7 +28,7 @@ class UserSignIn extends Component {
 						const name = res.data[0].firstName;
 						const userId = res.data[0]._id;
 						this.context.signIn(emailAddress, password, name, true, userId);
-						const path = (this.props.location.state.from || '/')
+						const path = this.props.location.state ? this.props.location.state.from : '/';
 						this.props.history.push(path);
 					}
 				})
@@ -40,6 +40,9 @@ class UserSignIn extends Component {
 							accessDenied : true,
 							accessDeniedMessage : err.response.data.accessDenied
 						});
+					} else {
+						//server error
+						console.log(err)
 					}
 				});
 		} else {
