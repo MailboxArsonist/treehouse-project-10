@@ -1,15 +1,29 @@
 import React, {useContext} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 import {UserContext} from '../../context/UserProvider';
+import axios from 'axios';
 
 const ActionBar = (props) => {
     console.log('rendered actionbar')
-    const {userId} = useContext(UserContext);
-    console.log(userId);
-    console.log(props.userId)
-    //what i need to do
-    //1. Check to see if user Id from aut user matches user id from courseDetail
-    //If they don't match, dont render update and delete
+    const {userId, username, password} = useContext(UserContext);
+
+    /*
+    ** Makes a DELETE req to API
+    */
+    const deleteCourse = () => {
+        axios.delete(`http://localhost:5000/api/courses/${props.courseId}`, {
+            auth : {
+                username,
+                password
+            }
+        }).then(res => {
+            //redirect user to homepage
+            props.history.push('/');
+        }).catch(err => {
+            props.history.push('/error');
+            console.log(err);
+        })
+    }
     return (
         <div className="actions--bar">
             <div className="bounds">
@@ -18,7 +32,7 @@ const ActionBar = (props) => {
                         {userId === props.courseUserId && (
                             <>
                                 <Link className="button" to={`/courses/${props.courseId}/update`}>Update Course</Link>
-                                <Link className="button" to="#">Delete Course</Link>
+                                <button className="button" onClick={deleteCourse}>Delete Course</button>
                             </>
                         )}
                         
@@ -30,4 +44,4 @@ const ActionBar = (props) => {
     )
 }
 
-export default ActionBar;
+export default withRouter(ActionBar);
