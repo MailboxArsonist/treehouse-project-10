@@ -135,7 +135,7 @@ router.post('/courses', authenticateUser ,(req, res, next) => {
         user : currentUser
     })
     .then((course) => {
-        res.location(`/courses/${course.id}`);
+        res.setHeader('Location', `/courses/${course.id}`);
         res.sendStatus(201);
     })
     .catch(err => {
