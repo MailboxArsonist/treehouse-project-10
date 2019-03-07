@@ -29,7 +29,7 @@ class UserSignUp extends Component {
             })
               .then(res => {
                   const userId = res.data[0]._id;
-                  this.context.signIn(emailAddress, password, firstName, true, userId );
+                  this.context.signIn(emailAddress, password, firstName, lastName, userId, true);
                   this.props.history.push('/');
               })
               .catch(err => {

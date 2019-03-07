@@ -25,9 +25,10 @@ class UserSignIn extends Component {
 				})
 				.then(res => {
 					if (res.status === 200 || res.status === 304) {
-						const name = res.data[0].firstName;
+						const firstName = res.data[0].firstName;
+						const lastName = res.data[0].lastName;
 						const userId = res.data[0]._id;
-						this.context.signIn(emailAddress, password, name, true, userId);
+						this.context.signIn(emailAddress, password, firstName, lastName, userId, true);
 						const path = this.props.location.state ? this.props.location.state.from : '/';
 						this.props.history.push(path);
 					}
