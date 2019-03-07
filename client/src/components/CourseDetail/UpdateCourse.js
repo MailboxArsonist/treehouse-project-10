@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {UserContext} from '../../context/UserProvider';
+import {Link} from 'react-router-dom';
 
 class UpdateCourse extends Component {
     state = {
@@ -8,7 +10,8 @@ class UpdateCourse extends Component {
         description : '',
         estimatedTime : '',
         materialsNeeded : '',
-        user : ''
+        user : '',
+        attemptedSubmit : false
       }
     
     componentWillMount() {
@@ -32,19 +35,19 @@ class UpdateCourse extends Component {
 
     //handles submit
     handleSubmit = (e) => {
-        //prevent default
+        //prevent default to ensure form does not submit 
         e.preventDefault();
         //destructure state
         const { title, description, estimatedTime, materialsNeeded, user, courseId} = this.state;
         //check validation of inputs
-        if(title !== '' && description !== '' && estimatedTime !== '' && materialsNeeded !== '' && user !== ''){
+        if(this.validateInput('title') && this.validateInput('description') && this.validateInput('estimatedTime') && this.validateInput('materialsNeeded') && user !== ''){
             //everything is good, lets make a PUT req.
             axios({
                 method : 'put',
                 url : `http://localhost:5000/api/courses/${courseId}`,
                 auth: {
-                    username: this.props.user.username,
-                    password: this.props.user.password
+                    username: this.context.username,
+                    password: this.context.password
                   },
                 data : {
                     title,
@@ -58,14 +61,65 @@ class UpdateCourse extends Component {
             }).catch(err => {
                 console.log(err);
             })
+        } else {
+            //form did not submit correctly because of missing fields.
+            this.setState({attemptedSubmit : true});
         }
     }
-    //handles interaction on inputs, updates the state that matches the input name
+
+    /**
+     * @param  {Object} e - Event object - handles interaction on inputs, updates the state that matches the input name
+     */
     handleChange = (e) => {
         //validateForm(e.target.name, e.target.value)
         this.setState({
             [e.target.name]: e.target.value
         });
+    }
+
+    /**
+     * Creates an error message if user tries to submit the form and the 'inputName' fails validation
+     * @param  {string} errorMessage - an error message string
+     * @param  {string} inputName - name assigned to the input e.g. 'description'
+     */
+    createErrorMessage = (errorMessage, inputName) => {
+        //check if user tried to submit form, if true then display the error message
+        if(this.state.attemptedSubmit && !this.validateInput(inputName)){
+            return (
+                <span className="error-create">{errorMessage}</span>
+            )
+        }
+    }
+
+    //Method to cut out any line breaks in courseDescription and courseMaterials
+    trim = (str) => {
+        return str.replace( /^\s+|\s+$/g, '' );
+    }
+
+    validateInput = (inputName) => {
+        const courseTitle = this.state.title;
+        const courseEstimatedTime = this.state.estimatedTime;
+        const courseDescription = this.trim(this.state.description);
+        const courseMaterials = this.trim(this.state.materialsNeeded);
+        //what do i need to do?
+        //title and descrip need to be >= 3 char
+        //remove line break from both text area
+        switch (inputName) {
+            case 'title':
+                console.log(/^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseTitle));
+                return /^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseTitle);
+            case 'description':
+            console.log(/^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseDescription))
+                return /^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseDescription); 
+            case 'estimatedTime':
+            console.log(/^(?=.*[A-Z,a-z,\d]).{2,}$/.test(courseEstimatedTime))
+                return /^(?=.*[A-Z,a-z,\d]).{2,}$/.test(courseEstimatedTime);                    
+            case 'materialsNeeded':
+                console.log(/^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseMaterials))
+                return /^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseMaterials);
+            default:
+                break;
+        }
     }
 
     render(){
@@ -86,11 +140,12 @@ class UpdateCourse extends Component {
                     <form onSubmit={this.handleSubmit} >
                         <div className="grid-66">
                             <div className="course--header">
-                                <h4 className="course--label">Course</h4>
+                                <h4 className="course--label">Course {this.createErrorMessage('- *Required', 'title')}</h4>
                                 <div><input onChange={this.handleChange} id="title" name="title" type="text" className="input-title course--title--input" placeholder={this.state.title} value={this.state.title}/></div>
-                                {/* <p>By {this.state.course.user.firstName} {this.state.course.user.lastName}</p> */}
+                                <p>By {this.context.firstName} {this.context.lastName}</p>
                             </div>
                             <div className="course--description">
+                                <h4 className="course--label">Description {this.createErrorMessage('- *Required', 'description')}</h4>
                                 <div><textarea onChange={this.handleChange} id="description" name="description" className="" placeholder={this.state.description} value={this.state.description}></textarea></div>
                             </div>
                         </div>
@@ -98,21 +153,22 @@ class UpdateCourse extends Component {
                             <div className="course--stats">
                                 <ul className="course--stats--list">
                                     <li className="course--stats--list--item">
-                                        <h4>Estimated Time</h4>
+                                        <h4>Estimated Time {this.createErrorMessage('- *Required', 'estimatedTime')}</h4>
                                         <div><input onChange={this.handleChange} id="estimatedTime" name="estimatedTime" type="text" className="course--time--input" placeholder={this.state.estimatedTime} value={this.state.estimatedTime}/></div>
                                     </li>
                                     <li className="course--stats--list--item">
-                                        <h4>Materials Needed</h4>
+                                        <h4>Materials Needed {this.createErrorMessage('- *Required', 'materialsNeeded')}</h4>
                                         <div><textarea onChange={this.handleChange} id="materialsNeeded" name="materialsNeeded" className="" placeholder={this.state.materialsNeeded} value={this.state.materialsNeeded}></textarea></div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="grid-100 pad-bottom"><button className="button" type="submit">Update Course</button><button className="button button-secondary">Cancel</button></div>
+                        <div className="grid-100 pad-bottom"><button className="button" type="submit">Update Course</button><Link to="/"className="button button-secondary">Cancel</Link></div>
                     </form>
                 </div>
             </div>
         )
     }
 }
+UpdateCourse.contextType = UserContext;
 export default UpdateCourse;
