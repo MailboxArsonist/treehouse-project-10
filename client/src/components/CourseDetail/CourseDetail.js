@@ -22,15 +22,19 @@ class CourseDetail extends Component {
                   loading : false
                 })
               })
-              .catch(err => console.log(err))
+              .catch(err => {
+                //Error, redirect the user to error path.
+                this.props.history.push('/error');
+                console.log(err);
+              })
       }
+      
       render () {
-        console.log('course detail rendered')
-          return (
-            <div>
-                <div className="bounds course--detail">
-                  {this.state.loading ? <h1>Loading</h1> : 
-                    <>
+        return (
+          <div>
+              <div className="bounds course--detail">
+                {this.state.loading ? <h1>Loading</h1> : 
+                  <>
                     <ActionBar courseId={this.state.course._id} courseUserId={this.state.course.user._id}/>
                     <CourseContent 
                         courseTitle={this.state.course.title} 
@@ -41,11 +45,11 @@ class CourseDetail extends Component {
                       materialsNeeded={this.state.course.materialsNeeded}
                       estimatedTime={this.state.course.estimatedTime}
                     />
-                    </>
-                    }
-                </div>
-            </div>
-          )
+                  </>
+                  }
+              </div>
+          </div>
+        )
       }
 }
 
