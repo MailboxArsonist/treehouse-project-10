@@ -14,6 +14,8 @@ import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/CourseDetail/UpdateCourse';
 import PrivateRoute from './components/PrivateRoute';
 import UserProvider from './context/UserProvider';
+import ErrorBoundary from './components/Errors/ErrorBoundary';
+import ServerError from './components/Errors/ServerError';
 
 
 
@@ -23,27 +25,30 @@ class App extends Component {
   render() {
     console.log('rendered app');
     return (
-      <UserProvider>
-        <Router>
-          <>
-            <Nav/>
+      <ErrorBoundary>
+        <UserProvider>
+          <Router>
+            <>
+              <Nav/>
+                <Switch>
+                  <Route exact path="/" component={Courses}/>
 
-            <Switch>
-              <Route exact path="/" component={Courses}/>
+                  <PrivateRoute exact path="/courses/create" component={CreateCourse}/>
+                  <PrivateRoute exact path="/courses/:id/update" component={UpdateCourse}/>
 
-              <PrivateRoute exact path="/courses/create" component={CreateCourse}/>
-              <PrivateRoute exact path="/courses/:id/update" component={UpdateCourse}/>
+                  <Route exact path="/courses/:id" component={CourseDetail}/>
 
-              <Route exact path="/courses/:id" component={CourseDetail}/>
+                  <Route exact path="/signup" component={UserSignUp}/>
+                  <Route exact path="/signin" component={UserSignIn}/>
+                  <Route exact path="/error" component={ServerError}/>
 
-              <Route exact path="/signup" component={UserSignUp}/>
-              <Route exact path="/signin" component={UserSignIn}/>
-
-              <Route component={NotFound}/>
-            </Switch>
-          </>
-        </Router>
-      </UserProvider>
+                  <Route component={NotFound}/>
+                </Switch>
+            </>
+          </Router>
+        </UserProvider>
+      </ErrorBoundary>
+      
     );
   }
 }
