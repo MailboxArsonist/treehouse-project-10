@@ -4,15 +4,16 @@ import {UserContext} from '../context/UserProvider';
 
 const Nav = (props) => {
   console.log('rendered nav')
-  const {name, signOut} = useContext(UserContext);
+  const {firstName, signOut} = useContext(UserContext);
+  console.log(firstName)
 
     return (
       <div className="header">
         <div className="bounds">
           <Link to="/"><h1 className="header--logo">Courses</h1></Link>
-          <nav>{name ?
+          <nav>{firstName ?
                 <div>
-                  <span>Welcome {name}</span>
+                  <span>Welcome {firstName}</span>
                   <Link className="signout" to="/" onClick={signOut}>Sign Out</Link>
                 </div>  
                 :
