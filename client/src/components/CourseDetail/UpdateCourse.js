@@ -86,7 +86,7 @@ class UpdateCourse extends Component {
         //check if user tried to submit form, if true then display the error message
         if(this.state.attemptedSubmit && !this.validateInput(inputName)){
             return (
-                <span className="error-create">{errorMessage}</span>
+                <span className="error-message">{errorMessage}</span>
             )
         }
     }

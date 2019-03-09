@@ -90,7 +90,7 @@ class UserSignUp extends Component {
     errorMessage = (name, errorMessage) => {
         if(this.state.attemptedSubmit && !this.isValid(name)){
             //form has been submitted and this input was incorrectly filled in.
-            return <label>{errorMessage}</label>
+            return <label className="error-message">{errorMessage}</label>
         } else {
             return null;
         }

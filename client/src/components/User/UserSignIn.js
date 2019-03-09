@@ -62,7 +62,7 @@ class UserSignIn extends Component {
     errorMessage = (name, errorMessage) => {
         if(this.state.attemptedSignIn && this.state[name] === ''){
             //form has been submitted and this input was incorrectly filled in.
-            return <label>{errorMessage}</label>
+            return <span className="error-message">{errorMessage}</span>
         } else {
             return null;
         }
@@ -77,7 +77,7 @@ class UserSignIn extends Component {
 					<div>
 						<form onSubmit={this.handleSubmit}>
 							<div>
-								{this.state.accessDenied && <label>{this.state.accessDeniedMessage}</label>}
+								{this.state.accessDenied && <span className="error-message">{this.state.accessDeniedMessage}</span>}
 								{this.errorMessage('emailAddress', 'You must enter your email address')}
 								<input
 									onChange={this.handleChange}
