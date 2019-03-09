@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:300|Oxygen:300,400|Raleway");
+
 /* line 7, ../sass/reset.sass */
 a,
 abbr,
@@ -201,19 +203,19 @@ svg {
 
 /* line 5, ../sass/global.sass */
 body {
-  font-family: "Work Sans", sans-serif;
-  background: #fff;
+  font-family: 'Raleway', sans-serif;
+  background: #F4FAFF;
 }
 
 /* line 13, ../sass/global.sass */
 .header {
-  background: #57496e;
+  background: #EEB902;
   padding: 20px 0;
   margin-bottom: 30px;
 }
 /* line 17, ../sass/global.sass */
 .header--logo {
-  color: #fff;
+  color: #474647;
   font-size: 24px;
   padding: 0 15px;
   margin: 0;
@@ -221,7 +223,7 @@ body {
 }
 /* line 23, ../sass/global.sass */
 .header--logo a {
-  color: rgba(255, 255, 255, 0.5);
+  color: #474647;
 }
 /* line 25, ../sass/global.sass */
 .header--logo a:hover {
@@ -245,7 +247,7 @@ body {
 }
 /* line 37, ../sass/global.sass */
 .header nav a {
-  color: rgba(255, 255, 255, 0.5);
+  color: #474647;
   margin-left: 20px;
 }
 /* line 40, ../sass/global.sass */
@@ -339,7 +341,7 @@ p {
 
 /* line 102, ../sass/global.sass */
 .course--module {
-  background: #7c689b;
+  background: #F4CD4B;
   border-radius: 8px;
   padding: 30px;
   margin-bottom: 30px;
@@ -347,6 +349,9 @@ p {
   display: block;
   position: relative;
   box-sizing: border-box;
+}
+.course--module:hover {
+  background: #F4CD4B;
 }
 /* line 2, ../sass/mixins.sass */
 .course--module:before, .course--module:after {
@@ -365,17 +370,17 @@ p {
 }
 /* line 116, ../sass/global.sass */
 .course--label {
-  font-family: "Cousine";
+  font-family: 'Oxygen', sans-serif;
   font-size: 14px;
   font-weight: 100;
-  color: rgba(255, 255, 255, 0.5);
+  color: #474647;
   margin-bottom: 10px;
   font-weight: normal;
 }
 /* line 123, ../sass/global.sass */
 .course--title {
   font-size: 18px;
-  color: #fff;
+  color: #474647;
 }
 /* line 126, ../sass/global.sass */
 .course--link {
@@ -764,4 +769,17 @@ input:focus {
 }
 .validation--duplicate a:hover {
   color: #7f50c5;
+}
+
+
+/* Error Styling */
+
+.error-message {
+  color: red;
+  font-size: 10px;
+  margin-bottom: 10px;
+  font-weight: 100;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: inline-block;
 }
