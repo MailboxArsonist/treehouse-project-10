@@ -8,9 +8,9 @@ const CourseContent = (props) => {
     return (
         <div className="grid-66">
             <div className="course--header">
-                <h4 className="course--label">Course</h4>
+                <h4 className="course--label"><img src={require('../../img/svg/007-content.svg')} alt="windmill" className="course-title-svg"></img> Course</h4>
                 <h3 className="course--title">{courseTitle}</h3>
-                <p>{courseInstructor}</p>
+                <p><img src={require('../../img/svg/001-woman.svg')} alt="windmill" className="course-title-svg"></img> By {courseInstructor}</p>
             </div>
             <div className="course--description">
                 <ReactMarkdown source={courseDescription}></ReactMarkdown>
