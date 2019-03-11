@@ -12,8 +12,8 @@ class ErrorBoundary extends Component {
     render(){
         if(this.state.error){
             return(
-                <div>
-                    <h5>Whoops, something went worng...</h5>
+                <div className="error-block">
+                    <h5>Whoops, something went wrong...</h5>
                     <details style={{ whiteSpace: 'pre-wrap' }}>
                         {this.state.errorInfo.componentStack}
                     </details>

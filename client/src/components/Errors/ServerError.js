@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const ServerError = () => {
     return (
-        <div>
+        <div className="error-block">
             <Link className="button" to="/">Go Back</Link>
-            <div>Looks like there was an error with the server...</div>
+            <p>Sorry, it looks like there was an error with the server...</p>
         </div>
     )
 }
