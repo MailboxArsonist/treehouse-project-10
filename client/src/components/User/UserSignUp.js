@@ -107,9 +107,9 @@ class UserSignUp extends Component {
                             {this.checkIfExists()}
                             <div>{this.errorMessage('firstName', 'Required Field')}<input onChange={this.handleChange} id="firstName" name="firstName" type="text" className="" placeholder="First Name" /></div>
                             <div>{this.errorMessage('lastName','Required Field')}<input onChange={this.handleChange} id="lastName" name="lastName" type="text" className="" placeholder="Last Name" /></div>
-                            <div>{this.errorMessage('emailAddress','Required Field')}<input onChange={this.handleChange} id="emailAddress" name="emailAddress" type="text" className="" placeholder="Email Address" /></div>
-                            <div>{this.errorMessage('password','Required Field')}<input onChange={this.handleChange} id="password" name="password" type="password" className="" placeholder="Password" /></div>
-                            <div>{this.errorMessage('confirmPassword','Required Field')}<input onChange={this.handleChange} id="confirmPassword" name="confirmPassword" type="password" className="" placeholder="Confirm Password" /></div>
+                            <div>{this.errorMessage('emailAddress','Required Field - Must be a valid email address')}<input onChange={this.handleChange} id="emailAddress" name="emailAddress" type="text" className="" placeholder="Email Address" /></div>
+                            <div>{this.errorMessage('password','Required Field - Minimum 8 letters & 1 number')}<input onChange={this.handleChange} id="password" name="password" type="password" className="" placeholder="Password" /></div>
+                            <div>{this.errorMessage('confirmPassword','Oops, your passwords are not the same')}<input onChange={this.handleChange} id="confirmPassword" name="confirmPassword" type="password" className="" placeholder="Confirm Password" /></div>
                             <div className="grid-100 pad-bottom"><button className="button" type="submit">Sign Up</button><Link className="button button-secondary" to="/">Cancel</Link></div>
                         </form>
                     </div>
