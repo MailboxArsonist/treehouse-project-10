@@ -93,7 +93,7 @@ class UpdateCourse extends Component {
 
     //Method to cut out any line breaks in courseDescription and courseMaterials
     trim = (str) => {
-        return str.replace( /^\s+|\s+$/g, '' );
+        return str.replace(/(\r\n|\n|\r)/gm,"");
     }
 
     validateInput = (inputName) => {
@@ -109,7 +109,6 @@ class UpdateCourse extends Component {
                 console.log(/^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseTitle));
                 return /^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseTitle);
             case 'description':
-            console.log(/^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseDescription))
                 return /^(?=.*[A-Z,a-z,\d]).{3,}$/.test(courseDescription); 
             case 'estimatedTime':
             console.log(/^(?=.*[A-Z,a-z,\d]).{2,}$/.test(courseEstimatedTime))
@@ -140,9 +139,9 @@ class UpdateCourse extends Component {
                     <form onSubmit={this.handleSubmit} >
                         <div className="grid-66">
                             <div className="course--header">
-                                <h4 className="course--label">Course {this.createErrorMessage('- *Required', 'title')}</h4>
+                                <h4 className="course--label"><img src={require('../../img/svg/007-content.svg')} alt="windmill" className="course-title-svg"></img> Course {this.createErrorMessage('- *Required', 'title')}</h4>
                                 <div><input onChange={this.handleChange} id="title" name="title" type="text" className="input-title course--title--input" placeholder={this.state.title} value={this.state.title}/></div>
-                                <p>By {this.context.firstName} {this.context.lastName}</p>
+                                <p><img src={require('../../img/svg/001-woman.svg')} alt="windmill" className="course-title-svg"></img> By {this.context.firstName} {this.context.lastName}</p>
                             </div>
                             <div className="course--description">
                                 <h4 className="course--label">Description {this.createErrorMessage('- *Required', 'description')}</h4>
@@ -153,11 +152,11 @@ class UpdateCourse extends Component {
                             <div className="course--stats">
                                 <ul className="course--stats--list">
                                     <li className="course--stats--list--item">
-                                        <h4>Estimated Time {this.createErrorMessage('- *Required', 'estimatedTime')}</h4>
+                                        <h4><img src={require('../../img/svg/004-alarm-clock.svg')} alt="windmill" className="course-title-svg"></img> Estimated Time {this.createErrorMessage('- *Required', 'estimatedTime')}</h4>
                                         <div><input onChange={this.handleChange} id="estimatedTime" name="estimatedTime" type="text" className="course--time--input" placeholder={this.state.estimatedTime} value={this.state.estimatedTime}/></div>
                                     </li>
                                     <li className="course--stats--list--item">
-                                        <h4>Materials Needed {this.createErrorMessage('- *Required', 'materialsNeeded')}</h4>
+                                        <h4><img src={require('../../img/svg/002-pencil.svg')} alt="windmill" className="course-title-svg"></img> Materials Needed {this.createErrorMessage('- *Required', 'materialsNeeded')}</h4>
                                         <div><textarea onChange={this.handleChange} id="materialsNeeded" name="materialsNeeded" className="" placeholder={this.state.materialsNeeded} value={this.state.materialsNeeded}></textarea></div>
                                     </li>
                                 </ul>
