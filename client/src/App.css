@@ -204,18 +204,18 @@ svg {
 /* line 5, ../sass/global.sass */
 body {
   font-family: 'Raleway', sans-serif;
-  background: #F4FAFF;
+  background: #444;
 }
 
 /* line 13, ../sass/global.sass */
 .header {
-  background: #EEB902;
+  background: rgba(45,45,45,0.98);
   padding: 20px 0;
   margin-bottom: 30px;
 }
 /* line 17, ../sass/global.sass */
 .header--logo {
-  color: #474647;
+  color: #fff;
   font-size: 24px;
   padding: 0 15px;
   margin: 0;
@@ -223,11 +223,11 @@ body {
 }
 /* line 23, ../sass/global.sass */
 .header--logo a {
-  color: #474647;
+  color: #fff;
 }
 /* line 25, ../sass/global.sass */
 .header--logo a:hover {
-  color: #fff;
+  color: blue;
 }
 /* line 27, ../sass/global.sass */
 .header--logo .selected {
@@ -247,20 +247,21 @@ body {
 }
 /* line 37, ../sass/global.sass */
 .header nav a {
-  color: #474647;
+  color: #fff;
   margin-left: 20px;
 }
 /* line 40, ../sass/global.sass */
 .header nav a:hover {
-  color: #fff;
+  color: #18CAE6;
 }
 
 /* line 44, ../sass/global.sass */
 .actions--bar {
-  border-bottom: 1px solid #d5f9fe;
-  background: #f8feff;
+  border-bottom: 0.5px solid #fff;
+  background: #444;
   padding: 20px 0;
   margin-top: -30px;
+  margin-bottom: 20px;
 }
 /* line 2, ../sass/mixins.sass */
 .actions--bar:before, .actions--bar:after {
@@ -280,11 +281,12 @@ body {
 h1 {
   font-size: 36px;
   margin-bottom: 20px;
+  color: #fff;
 }
 
 /* line 61, ../sass/global.sass */
 a {
-  color: #7c689b;
+  color: #18CAE6;
   cursor: pointer;
   text-decoration: none;
   -webkit-transition: color 0.2s;
@@ -296,8 +298,9 @@ a {
 
 /* line 66, ../sass/global.sass */
 p {
-  font-family: "Cousine";
+  font-family: "Raleway", sans-serif;
   margin-bottom: 30px;
+  color: #fff;
 }
 
 /* line 70, ../sass/global.sass */
@@ -340,18 +343,28 @@ p {
 }
 
 /* line 102, ../sass/global.sass */
+
 .course--module {
-  background: #F4CD4B;
+  background:rgba(45,45,45,0.98);
   border-radius: 8px;
+  border: 1px solid #18CAE6;
   padding: 30px;
   margin-bottom: 30px;
   min-height: 107px;
   display: block;
   position: relative;
   box-sizing: border-box;
+  -webkit-transition: border 0.4s;
+  -moz-transition: border 0.4s;
+  -ms-transition: border 0.4s;
+  -o-transition: border 0.4s;
+  transition: border 0.4s;
 }
 .course--module:hover {
-  background: #F4CD4B;
+  border-color: #5D26C1;
+}
+.course--module:hover .course--title{
+  color: #18CAE6;
 }
 /* line 2, ../sass/mixins.sass */
 .course--module:before, .course--module:after {
@@ -373,38 +386,42 @@ p {
   font-family: 'Oxygen', sans-serif;
   font-size: 14px;
   font-weight: 100;
-  color: #474647;
+  color: rgb(114, 114, 114);
   margin-bottom: 10px;
   font-weight: normal;
 }
 /* line 123, ../sass/global.sass */
 .course--title {
   font-size: 18px;
-  color: #474647;
+  color: #fff;
+  transition: color 0.5s;
 }
 /* line 126, ../sass/global.sass */
 .course--link {
   display: block;
   cursor: pointer;
   text-decoration: none;
-  border: 0;
 }
 /* line 133, ../sass/global.sass */
 .course--add--module {
-  background: #eee;
+  background:rgba(45,45,45,0.98);
+  border-radius: 8px;
+  border: 1px solid #18CAE6;
   text-align: center;
 }
 /* line 137, ../sass/global.sass */
 .course--add--module:hover .course--add--title {
-  color: #444;
+  color: #18CAE6;
+  transition: color 0.4s;
 }
 /* line 139, ../sass/global.sass */
 .course--add--module:hover .add {
-  fill: #444;
+  fill: #18CAE6;
+
 }
 /* line 141, ../sass/global.sass */
 .course--add--title {
-  color: #999;
+  color: #fff;
   display: inline-block;
   font-size: 18px;
   position: absolute;
@@ -414,13 +431,15 @@ p {
   -moz-transform: translate(-50%, -55%);
   -ms-transform: translate(-50%, -55%);
   transform: translate(-50%, -55%);
+  transition: color 0.5s;
 }
 /* line 149, ../sass/global.sass */
 .course--add--title .add {
   width: 13px;
   height: auto;
   margin: 0 5px 0 0;
-  fill: #999;
+  fill: #fff;
+  transition: fill 0.4s;
 }
 /* line 159, ../sass/global.sass */
 .course--detail {
@@ -434,24 +453,31 @@ p {
 .course--header .course--label {
   font-size: 18px;
   color: #999;
+  font-weight: 100;
+  letter-spacing: 1px;
 }
 /* line 167, ../sass/global.sass */
 .course--header .course--title {
   font-size: 48px;
+  font-weight: 200;
+  font-family: "Raleway", sans-serif;
   margin-bottom: 15px;
-  color: #332a40;
+  color: #fff;
 }
 /* line 171, ../sass/global.sass */
 .course--header p {
   font-size: 18px;
-  color: #b1a5c4;
+  font-family: 'Oxygen', sans-serif;
+  color: #999;
   font-weight: 100;
+  letter-spacing: 1px;
+
 }
 /* line 176, ../sass/global.sass */
 .course--title--input {
   font-size: 48px;
   font-weight: bold;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 /* line 186, ../sass/global.sass */
 .course--description {
@@ -464,8 +490,9 @@ p {
 /* line 190, ../sass/global.sass */
 .course--description p {
   font-size: 16px;
+  font-weight: 100;
   line-height: 1.8;
-  color: #444;
+  color: #fff;
 }
 /* line 195, ../sass/global.sass */
 .course--description ol,
@@ -519,8 +546,8 @@ p {
 .course--description h1,
 .course--description h2,
 .course--description h3 {
-  font-family: "Work Sans", sans-serif;
-  color: #222;
+  font-family: 'Oxygen', sans-serif;
+  color: #fff;
   margin-bottom: 30px;
 }
 /* line 235, ../sass/global.sass */
@@ -545,7 +572,7 @@ p {
 }
 /* line 287, ../sass/global.sass */
 .course--stats--list h4 {
-  font-family: "Cousine";
+  font-family: 'Oxygen', sans-serif;
   font-weight: 100;
   color: #999;
   font-size: 14px;
@@ -560,7 +587,9 @@ p {
 }
 /* line 300, ../sass/global.sass */
 .course--stats--list h3 {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
+  font-weight: 100;
+  color: #fff;
   font-size: 18px;
 }
 /* line 303, ../sass/global.sass */
@@ -578,7 +607,7 @@ p {
 }
 /* line 311, ../sass/global.sass */
 .course--time--input {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 18px;
   font-weight: bold;
   margin: 0;
@@ -595,48 +624,53 @@ textarea {
   width: 100%;
   min-height: 300px;
   border-radius: 8px;
-  background: #fff;
+  background: rgba(45, 45, 45, 0.98);
   padding: 15px;
   font-size: 16px;
   margin: 0 0 20px;
-  border: 1px solid #ccc4d8;
-  color: #666;
+  border: 1px solid #18CAE6;
+  color: #fff;
   line-height: 1.8;
   outline: none;
-  font-family: "Cousine";
+  font-family: 'Oxygen', sans-serif;
   box-sizing: border-box;
 }
 /* line 29, ../sass/mixins.sass */
 textarea::-webkit-input-placeholder {
   font-weight: normal;
   font-size: 16px;
+  color: #fff;
 }
 /* line 31, ../sass/mixins.sass */
 textarea:-moz-placeholder {
   font-weight: normal;
   font-size: 16px;
+  color: #fff;
 }
 /* line 33, ../sass/mixins.sass */
 textarea::-moz-placeholder {
   font-weight: normal;
   font-size: 16px;
+  color: #fff;
 }
 /* line 35, ../sass/mixins.sass */
 textarea:-ms-input-placeholder {
   font-weight: normal;
   font-size: 16px;
+  color: #fff;
 }
 /* line 485, ../sass/global.sass */
 textarea:focus {
-  border-color: #7c689b;
+  border-color: #5D26C1;
 }
 
 /* line 488, ../sass/global.sass */
 input {
   width: 100%;
-  color: #332a40;
+  background: rgba(45, 45, 45, 0.98);
+  color: #fff;
   border-radius: 8px;
-  border: 1px solid #ccc4d8;
+  border: 1px solid #18CAE6;
   padding: 15px;
   margin-bottom: 15px;
   outline: none;
@@ -646,47 +680,56 @@ input {
 /* line 29, ../sass/mixins.sass */
 input::-webkit-input-placeholder {
   font-weight: normal;
+  color: #fff;
 }
 /* line 31, ../sass/mixins.sass */
 input:-moz-placeholder {
   font-weight: normal;
+  color: #fff;
 }
 /* line 33, ../sass/mixins.sass */
 input::-moz-placeholder {
   font-weight: normal;
+  color: #fff;
 }
 /* line 35, ../sass/mixins.sass */
 input:-ms-input-placeholder {
   font-weight: normal;
+  color: #fff;
 }
 /* line 500, ../sass/global.sass */
 input:focus {
-  border-color: #7c689b;
+  border-color: #5D26C1;
 }
 
 /* line 29, ../sass/mixins.sass */
 .input-title::-webkit-input-placeholder {
   font-weight: bold;
+  color: #fff;
 }
 /* line 31, ../sass/mixins.sass */
 .input-title:-moz-placeholder {
   font-weight: bold;
+  color: #fff;
 }
 /* line 33, ../sass/mixins.sass */
 .input-title::-moz-placeholder {
   font-weight: bold;
+  color: #fff;
 }
 /* line 35, ../sass/mixins.sass */
 .input-title:-ms-input-placeholder {
   font-weight: bold;
+  color: #fff;
 }
 
 /* line 507, ../sass/global.sass */
 .button {
-  background: #7c689b;
+  background: #18CAE6;
   color: #fff;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 18px;
+  font-weight: 100;
   padding: 15px 30px;
   border: 0;
   margin-right: 10px;
@@ -706,14 +749,14 @@ input:focus {
 }
 /* line 522, ../sass/global.sass */
 .button:not(.button-secondary):hover {
-  background: #63537d;
+  background: #5D26C1;
 }
 
 /* line 525, ../sass/global.sass */
 .button-secondary {
-  color: #7c689b;
-  background: none;
-  box-shadow: 0 0 0 2px #7c689b inset;
+  color: #fff;
+  background: rgba(45,45,45,0.98);
+  box-shadow: 0 0 0 2px #18CAE6 inset;
   -webkit-transition: box-shadow 0.2s, color 0.2s;
   -moz-transition: box-shadow 0.2s, color 0.2s;
   -ms-transition: box-shadow 0.2s, color 0.2s;
@@ -722,8 +765,8 @@ input:focus {
 }
 /* line 530, ../sass/global.sass */
 .button-secondary:hover {
-  color: #63537d;
-  box-shadow: 0 0 0 2px #63537d inset;
+  color: #fff;
+  box-shadow: 0 0 0 2px #5D26C1 inset;
 }
 
 /* adds additional padding to the bottom of an element */
@@ -742,15 +785,6 @@ input:focus {
   margin-left: 20px;
 }
 
-/* styles the validation errors */
-.validation--errors--label {
-  color: #7c689b;
-  font-size: 28px;
-}
-.validation-errors ul {
-  color: #7c689b;
-  padding: 15px 0 40px 10px;
-}
 
 /* reduce bottom margin on the course description textarea element */
 .course--description textarea {
@@ -759,16 +793,16 @@ input:focus {
 
 /* Styles the signup 'duplicate account' message */
 .validation--duplicate {
-  color: black;
-  font-size: 18px;
+  color: #fff;
+  font-size: 16px;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
 .validation--duplicate a {
-  color: #7c689b;
+  color: #18CAE6;
 }
 .validation--duplicate a:hover {
-  color: #7f50c5;
+  color: #5D26C1;
 }
 
 
@@ -782,4 +816,22 @@ input:focus {
   letter-spacing: 2px;
   text-transform: uppercase;
   display: inline-block;
+}
+
+/* SVG styling */
+
+.course-title-svg{
+  width: 30px;
+}
+
+.error-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.error-block p {
+  margin-top: 15px;
 }
