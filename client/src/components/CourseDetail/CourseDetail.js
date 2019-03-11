@@ -23,8 +23,8 @@ class CourseDetail extends Component {
                 })
               })
               .catch(err => {
-                //Error, redirect the user to error path.
-                this.props.history.push('/error');
+                //Error, redirect the user to error notfound path
+                this.props.history.push('/notfound');
                 console.log(err);
               })
       }
