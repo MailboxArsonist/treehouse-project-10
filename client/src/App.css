@@ -602,6 +602,7 @@ p {
 }
 /* line 307, ../sass/global.sass */
 .course--stats--list > li li {
+  color: #fff;
   margin-bottom: 15px;
   list-style-type: circle;
 }
