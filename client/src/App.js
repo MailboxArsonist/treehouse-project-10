@@ -16,6 +16,8 @@ import PrivateRoute from './components/PrivateRoute';
 import UserProvider from './context/UserProvider';
 import ErrorBoundary from './components/Errors/ErrorBoundary';
 import ServerError from './components/Errors/ServerError';
+import UserSignOut from './components/User/UserSignOut';
+import Forbidden from './components/Errors/Forbidden';
 
 
 
@@ -29,7 +31,7 @@ class App extends Component {
         <UserProvider>
           <Router>
             <>
-              <Nav/>
+                <Nav/>
                 <Switch>
                   <Route exact path="/" component={Courses}/>
 
@@ -40,8 +42,11 @@ class App extends Component {
 
                   <Route exact path="/signup" component={UserSignUp}/>
                   <Route exact path="/signin" component={UserSignIn}/>
+                  <Route exact path="/signout" component={UserSignOut}/>
+                  
+                  <Route exact path="/forbidden" component={Forbidden}/>
                   <Route exact path="/error" component={ServerError}/>
-
+                  <Route exact path="/notfound" component={NotFound}/>
                   <Route component={NotFound}/>
                 </Switch>
             </>
