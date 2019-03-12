@@ -57,6 +57,8 @@
       },
       "title": "Learn How to Test Programs",
       "description": "In this course, you'll learn how to test programs.",
+      "estimatedTime": "2 hours",
+      "materialsNeeded": "* Notebook computer running Mac OS X or Windows\n* Text editor",
       "__v": 0
     }
   ]

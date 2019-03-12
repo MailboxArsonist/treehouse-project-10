@@ -1,68 +1,23 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#Treehouse-Project-10
 
-## Available Scripts
+Welcome to my final treehouse project, this is a full-stack MERN app where users can create an account, create, update and delete courses.
 
-In the project directory, you can run:
+note for person reviewing my project.
+ -user logins reference for testing "sally@jones.com sallypassword" "joe@smith.com joepassword"
+ -I think I should be good to go for exceeds here. All of my error routing seems to be working fine.
+ -Ive added the user info to a cookie which is used if needed, also cleared out on 'signout' method
+ -Note: Instead of posting to the db on the update createcourse routes and waiting/reading the validation messages from the backend, I've validated on the front-end instead to limit un-necessary api calls.
 
-### `npm start`
+Steps to run this application
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Run mongo to start the db
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+2. In both the api and client folder run 'npm install' to install dependencies
 
-### `npm test`
+3. In the terminal you can run 'npm run seed' to seed the db (API folder)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Still in the npm folder you can start the server with 'npm start'
 
-### `npm run build`
+5. In the client folder you can 'npm start' to start the application.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+6. In your browser navigate to 'http://localhost:3000/' to use the application.
