@@ -29,8 +29,7 @@ class UserSignIn extends Component {
 						const lastName = res.data[0].lastName;
 						const userId = res.data[0]._id;
 						this.context.signIn(emailAddress, password, firstName, lastName, userId, true);
-						const path = this.props.location.state ? this.props.location.state.from : '/';
-						this.props.history.push(path);
+						this.props.history.push(this.context.location);
 					}
 				})
 				.catch(err => {
@@ -69,7 +68,7 @@ class UserSignIn extends Component {
     }
 
 	render() {
-		console.log("rendered signin");
+		console.log(this.context.location);
 		return (
 			<div className="bounds">
 				<div className="grid-33 centered signin">

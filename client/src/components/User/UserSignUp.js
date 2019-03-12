@@ -28,9 +28,9 @@ class UserSignUp extends Component {
                 password
             })
               .then(res => {
-                  const userId = res.data[0]._id;
+                  const userId = res.data._id;
                   this.context.signIn(emailAddress, password, firstName, lastName, userId, true);
-                  this.props.history.push('/');
+                  this.props.history.push(this.context.location);
               })
               .catch(err => {
                   //check if error is conflict(already existing user)
@@ -97,7 +97,7 @@ class UserSignUp extends Component {
     }
 
     render(){
-        console.log('rendered signup');
+        console.log(this.context.location);
         return(
             <div className="bounds">
                 <div className="grid-33 centered signin">
