@@ -71,9 +71,10 @@ router.post('/users', (req, res, next) => {
                     emailAddress : user.emailAddress,
                     password : user.password
                 })
-                    .then(() => {
+                    .then((user) => {
+                        console.log(user._id)
                         res.location('/');
-                        res.sendStatus(201);
+                        res.status(201).json(user);
                     })
                     .catch(err => {
                         next(err);
