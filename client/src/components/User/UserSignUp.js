@@ -14,10 +14,14 @@ class UserSignUp extends Component {
         attemptedSubmit: false
     }
 
-    //handles submit of form
+    /**
+     * handles the form being submitted by making a post request with user name and password
+     * @param  {Object} e - event object
+     */
     handleSubmit = (e) => {
         e.preventDefault();
         const {emailAddress, password, firstName, lastName} = this.state;
+
         //call validators
         if(this.isValid('firstName') && this.isValid('lastName') && this.isValid('emailAddress') && this.isValid('password') && this.isValid('confirmPassword')){
             //all good, make the request
@@ -29,6 +33,7 @@ class UserSignUp extends Component {
             })
               .then(res => {
                   const userId = res.data._id;
+                  //update context then redirect user
                   this.context.signIn(emailAddress, password, firstName, lastName, userId, true);
                   this.props.history.push(this.context.location);
               })
@@ -37,16 +42,22 @@ class UserSignUp extends Component {
                   if(err.response.status === 409){
                       //conflict, display error
                       this.setState({alreadyExists: true});
+                  } else {
+                      //server error, render error component
+                      this.props.history.push('/error');
                   }
                 console.log(err.response);
               });
         }else {
-            console.log(this.isValid(firstName))
+            //didn't pass clientside validation, set attempted submit to true to display error messages
             this.setState({attemptedSubmit: true});
         }
     }
 
-    //Checks 'alreadyExists' property to see if a user has an account already
+     /**
+     * Checks to see if alreadyExists : true, displays error message
+     * @returns  {string} html error message string or null
+     */
     checkIfExists = () => {
         if(this.state.alreadyExists){
             return(
@@ -57,14 +68,22 @@ class UserSignUp extends Component {
         }
     }
 
-    //handles interaction on inputs, updates the state that matches the input name
+    /**
+     * handles interaction on inputs, updates the state that matches the input name, reset access denied
+     * @param  {Object} e - Event object
+     */
     handleChange = (e) => {
-        //validateForm(e.target.name, e.target.value)
         this.setState({
             [e.target.name]: e.target.value
         });
     }
-    //@param => String => Name of input type
+
+
+    /**
+     * Tests a value in this.state and returns a boolean
+     * @param  {string} InputName - name assigned to the input e.g. 'description'
+     * @returns {boolean} 
+     */
     isValid = (inputName) => {
         const email = this.state.emailAddress;
         const pass = this.state.password;
@@ -86,7 +105,14 @@ class UserSignUp extends Component {
                 break;
         }
     }
-    //Will return an error message if the user tries to submit the form without all inputs correctly filled out
+
+
+    /**
+     * Will return an error message if the user tries to submit the form without all inputs correctly filled out
+     * @param  {string} name - name assigned to the input e.g. 'description'
+     * @param  {string} errorMessage - an error message string 
+     * @returns {string} a error message html string to be used as a component
+     */
     errorMessage = (name, errorMessage) => {
         if(this.state.attemptedSubmit && !this.isValid(name)){
             //form has been submitted and this input was incorrectly filled in.
@@ -97,13 +123,15 @@ class UserSignUp extends Component {
     }
 
     render(){
-        console.log(this.context.location);
         return(
             <div className="bounds">
                 <div className="grid-33 centered signin">
                     <h1>Sign Up</h1>
                     <div>
                         <form onSubmit={this.handleSubmit}>
+
+                            {/* {CheckIfExists and errorMessage will display error messages if necessary} */}
+
                             {this.checkIfExists()}
                             <div>{this.errorMessage('firstName', 'Required Field')}<input onChange={this.handleChange} id="firstName" name="firstName" type="text" className="" placeholder="First Name" /></div>
                             <div>{this.errorMessage('lastName','Required Field')}<input onChange={this.handleChange} id="lastName" name="lastName" type="text" className="" placeholder="Last Name" /></div>
@@ -120,5 +148,6 @@ class UserSignUp extends Component {
         )
     }
 }
+
 UserSignUp.contextType = UserContext;
 export default UserSignUp;

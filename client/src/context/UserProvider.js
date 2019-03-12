@@ -4,7 +4,6 @@ import { withCookies } from 'react-cookie';
 export const UserContext = React.createContext();
 
 class UserProvider extends Component {
-  //need locations for courses, createcourse updatecourse
     state = {
         authenticated : null,
         username : null,
@@ -14,8 +13,19 @@ class UserProvider extends Component {
         userId : null,
         location : '/'
       }
-      //set the state to the authenticated user && set the cookie
+
+      /**
+      * Will return an error message if the user tries to submit the form without all inputs correctly filled out
+      * @param  {string} userName - users email
+      * @param  {string} password - users password
+      * @param  {string} firstName - users first name
+      * @param  {string} lastName - users last name
+      * @param  {string} userId - random user id
+      * @param {boolean} authenticated 
+      */
       signIn = (username, password, firstName, lastName, userId, authenticated) => {
+
+        //if authenticated is true set the state
         if(authenticated){
           const { cookies } = this.props;
           this.setState({
@@ -26,7 +36,7 @@ class UserProvider extends Component {
             password,
             userId
           })
-          //then set cookies
+          //then set cookies the same values, cookies are used as a backup
           const userCookie = {
             authenticated,
             username,
@@ -37,6 +47,7 @@ class UserProvider extends Component {
           };
           cookies.set('user', JSON.stringify(userCookie), { path: '/' });
         } else {
+          //authnticated = false so to be sure update all values to null
           this.setState({
             authenticated : false,
             username : null,
@@ -47,7 +58,11 @@ class UserProvider extends Component {
           })
         }
       }
-      //signs a user out by setting global state to null && clear the cookie
+
+
+      /**
+      * signs a user out by setting global state to null && clears the cookies
+      */
       signOut = () => {
         const { cookies } = this.props;
         this.setState({
@@ -62,18 +77,27 @@ class UserProvider extends Component {
         cookies.remove('user', { path: '/' });
       }
 
+
+      /**
+      * Some routes call update location to keep the url, so when a user signs in/signs up they can be directed to the correct page
+      * @param {string} pathname - url to update location
+      */
       updateLocation = (pathname) => {
         this.setState({location : pathname});
       }
 
     render(){
+      //user info will hold the state or cookies as backup
       let userInfo;
       const { cookies } = this.props;
+      //get user cookie
       const userCookies = cookies.get('user');
-      //if authenticated is false && cookie auth is true render with cookie, otherwise render with normal info.
+
+      //if this.state doesn't hold a user, check to see if cookies does, if so, use the cookies data
       if(!this.state.authenticated && userCookies){
         userInfo = userCookies;
       } else {
+        //this.state already holds the data, so use that
         userInfo = {...this.state}
       }
         return(

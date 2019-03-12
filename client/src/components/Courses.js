@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
-//import course component
 import Course from './Course';
 import {UserContext} from '../context/UserProvider';
 
@@ -13,9 +11,14 @@ class Courses extends Component {
     courses : []
   }
 
+    /**
+     * Will return an error message if the user tries to submit the form without all inputs correctly filled out
+     */
   componentWillMount() {
     this.context.updateLocation('/');
     this.setState({loading : true});
+
+    //make get request for all courses
     axios.get('http://localhost:5000/api/courses')
           .then(results => {
             const courses = results.data.courses;
@@ -24,9 +27,19 @@ class Courses extends Component {
               loading : false
             })
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+            console.log(err);
+            //server error, render error page
+            if(err.response.status === 500){
+              this.props.history.push('/error');
+            }
+          })
   }
 
+    /**
+     * Creates a course component for each course in the courses array.
+     * @returns {string} an individual course component rendered to html
+     */
   courseCreator = () => {
       let courses = this.state.courses;
       return courses.map((course, index) => {
@@ -39,6 +52,7 @@ class Courses extends Component {
           )
       })
   }
+
   render() {
     return (
       <div className="bounds">
@@ -55,5 +69,6 @@ class Courses extends Component {
     );
   }
 }
+
 Courses.contextType = UserContext;
 export default Courses;

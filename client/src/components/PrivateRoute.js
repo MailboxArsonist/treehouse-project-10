@@ -8,15 +8,15 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     const {authenticated, updateLocation, location} = useContext(UserContext);
     //grab the current url which will be passed to component on redirect, so a user will be redirected to the previous page after sign-in
     const currentLocation = {...rest.location}.pathname;
-    //if url = createcourse redirect to signi
+    //if url = createcourse redirect to signin, else its update route, so redirect to forbidden
     const pathname = currentLocation === '/courses/create' ? '/signin' : '/forbidden';
-    //else its update, redirect to forbidden
-    // updateLocation(currentLocation);
+
+    //Update the location only if it has changed
     useEffect(() => {
         updateLocation(currentLocation);
     },[location]);
 
-
+    //if authenticated render the passed component, otherwise redirect to pathname('/signin' or '/forbidden')
     return (
         <Route {...rest} render={props => (
             authenticated ? <Component {...props} /> : <Redirect to={pathname}/>

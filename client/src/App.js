@@ -25,7 +25,6 @@ class App extends Component {
   
   
   render() {
-    console.log('rendered app');
     return (
       <ErrorBoundary>
         <UserProvider>

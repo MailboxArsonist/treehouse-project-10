@@ -3,14 +3,14 @@ import {Link} from 'react-router-dom';
 import {UserContext} from '../context/UserProvider';
 
 const Nav = (props) => {
-  console.log('rendered nav')
+  //Get firstName and signout method from context
   const {firstName, signOut} = useContext(UserContext);
-  console.log(firstName)
 
     return (
       <div className="header">
         <div className="bounds">
           <Link to="/"><h1 className="header--logo">Courses</h1></Link>
+          {/* {If firstName exists then a user is logged in, so welcome and signout are rendered, otherwise signin and signup} */}
           <nav>{firstName ?
                 <div>
                   <span>Welcome {firstName}</span>

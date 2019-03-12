@@ -4,11 +4,11 @@ import {UserContext} from '../../context/UserProvider';
 import axios from 'axios';
 
 const ActionBar = (props) => {
-    console.log('rendered actionbar')
+    //Destructure UserContext
     const {userId, username, password} = useContext(UserContext);
 
     /*
-    ** Makes a DELETE req to API
+    ** Makes a DELETE req to API then redirects to homepage
     */
     const deleteCourse = () => {
         axios.delete(`http://localhost:5000/api/courses/${props.courseId}`, {
@@ -29,13 +29,13 @@ const ActionBar = (props) => {
             <div className="bounds">
                 <div className="grid-100">
                     <span>
+                        {/* {If the user doesn't own the course update and delete buttons are not rendered } */}
                         {userId === props.courseUserId && (
                             <>
                                 <Link className="button" to={`/courses/${props.courseId}/update`}>Update Course</Link>
                                 <button className="button" onClick={deleteCourse}>Delete Course</button>
                             </>
                         )}
-                        
                     </span>
                     <Link className="button button-secondary" to="/">Return to List</Link>
                 </div>

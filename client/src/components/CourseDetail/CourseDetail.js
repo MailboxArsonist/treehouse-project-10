@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-
 //import components
 import ActionBar from './ActionBar';
 import CourseContent from './CourseContent';
 import CourseMaterial from './CourseMaterial';
 
+//import context
 import {UserContext} from '../../context/UserProvider';
 
 class CourseDetail extends Component {
@@ -14,10 +14,12 @@ class CourseDetail extends Component {
         loading : true,
         course : []
       }
-    
+
+      //When component mounts update context location and fetch the courses
       componentDidMount() {
         const query = this.props.match.params.id;
         this.context.updateLocation(`/courses/${query}`);
+        //fetch the courses and update state
         axios.get(`http://localhost:5000/api/courses/${query}`)
               .then(result => {
                 this.setState({
@@ -36,6 +38,7 @@ class CourseDetail extends Component {
         return (
           <div>
               <div className="bounds course--detail">
+                {/* {If courses haven't yet finished fetching display loading} */}
                 {this.state.loading ? <h1>Loading</h1> : 
                   <>
                     <ActionBar courseId={this.state.course._id} courseUserId={this.state.course.user._id}/>

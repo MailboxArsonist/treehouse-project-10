@@ -2,7 +2,6 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 const CourseContent = (props) => {
-    
     const {courseTitle, courseInstructor, courseDescription} = props;
 
     return (

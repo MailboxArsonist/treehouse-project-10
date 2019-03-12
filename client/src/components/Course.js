@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+//renders 1 course component
 const Course = (props) => {
     return (
         <div className="grid-33">

@@ -12,9 +12,16 @@ class UserSignIn extends Component {
 		accessDeniedMessage : ''
 		
 	};
+
+	/**
+     * handles the form being submitted by making a post request with user name and password
+     * @param  {Object} e - event object
+     */
 	handleSubmit = e => {
 		e.preventDefault();
 		const { emailAddress, password } = this.state;
+
+		//check that the user has entered input in both inputs
 		if (emailAddress.length > 0 && password.length > 0) {
 			//all good, make the request
 			axios.get("http://localhost:5000/api/users", {
@@ -28,28 +35,37 @@ class UserSignIn extends Component {
 						const firstName = res.data[0].firstName;
 						const lastName = res.data[0].lastName;
 						const userId = res.data[0]._id;
+
+						//sign the user in by calling signIn from UserContext, then redirect user to location
 						this.context.signIn(emailAddress, password, firstName, lastName, userId, true);
 						this.props.history.push(this.context.location);
 					}
 				})
 				.catch(err => {
 					console.log(err)
-					//come back to here and add in the
+					//if err is 403 then forbidden, set state to save error message.
 					if (err.response.status === 403) {
 						this.setState({
 							accessDenied : true,
 							accessDeniedMessage : err.response.data.accessDenied
 						});
 					} else {
-						//server error
+						//server error, redirect and console.log error
+						this.props.history.push('/error');
 						console.log(err)
 					}
 				});
 		} else {
+			//user didn't pass clientside validation, but attemted to sign in, so show error messages
 			this.setState({attemptedSignIn: true});
 		}
 	};
-	//handles changes to the input, set state = to input value. Reset access denied to remove any error message
+
+
+	/**
+     * handles interaction on inputs, updates the state that matches the input name, reset access denied
+     * @param  {Object} e - Event object
+     */
 	handleChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
@@ -57,10 +73,15 @@ class UserSignIn extends Component {
 		});
 	};
 
-	//Will return an error message if the user tries to submit the form without all inputs correctly filled out
+
+	/**
+     * Will return an error message if the user tries to submit the form without all inputs correctly filled out
+     * @param  {string} errorMessage - an error message string
+     * @param  {string} inputName - name assigned to the input e.g. 'description'
+     * @returns {string} a error message html string to be used as a component
+     */
     errorMessage = (name, errorMessage) => {
         if(this.state.attemptedSignIn && this.state[name] === ''){
-            //form has been submitted and this input was incorrectly filled in.
             return <span className="error-message">{errorMessage}</span>
         } else {
             return null;
@@ -68,7 +89,6 @@ class UserSignIn extends Component {
     }
 
 	render() {
-		console.log(this.context.location);
 		return (
 			<div className="bounds">
 				<div className="grid-33 centered signin">

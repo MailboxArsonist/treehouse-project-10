@@ -11,13 +11,18 @@ class CreateCourse extends Component {
         materialsNeeded: '',
         attemptedSubmit : false
     }
-    //handles submit
+
+    /**
+     * handles the form being submitted by making a post request with course info
+     * @param  {Object} e - event object
+     */
     handleSubmit = (e) => {
-        //prevent default
+        //prevent default to stop the form submitting
         e.preventDefault();
-        //destructure state
+        //destructure state & context
         const { title, description, estimatedTime, materialsNeeded} = this.state;
         const {username, password} = this.context;
+
         //check validation of inputs
         if(this.validateInput('title') && this.validateInput('description') && this.validateInput('estimatedTime') && this.validateInput('materialsNeeded')){
             //everything is good, lets make a POST req.
@@ -41,25 +46,18 @@ class CreateCourse extends Component {
                 this.props.history.push(path)
             }).catch(err => {
                 console.log(err);
+                this.props.history.push('/error');
             })
         } else {
             //didnt meet validation, set attemptedSubmit : true to show error messages
             this.setState({attemptedSubmit : true});
         }
     }
-    //handles interaction on inputs, updates the state that matches the input name
-    handleChange = (e) => {
-        //validateForm(e.target.name, e.target.value)
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
 
     /**
      * @param  {Object} e - Event object - handles interaction on inputs, updates the state that matches the input name
      */
     handleChange = (e) => {
-        //validateForm(e.target.name, e.target.value)
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -69,8 +67,8 @@ class CreateCourse extends Component {
      * Creates an error message if user tries to submit the form and the 'inputName' fails validation
      * @param  {string} errorMessage - an error message string
      * @param  {string} inputName - name assigned to the input e.g. 'description'
+     * @returns {string} a error message html string to be used as a component
      */
-
     createErrorMessage = (errorMessage, inputName) => {
         //check if user tried to submit form, if true then display the error message
         if(this.state.attemptedSubmit && !this.validateInput(inputName)){
@@ -80,11 +78,20 @@ class CreateCourse extends Component {
         }
     }
 
-    //Method to cut out any line breaks in courseDescription and courseMaterials
+    /**
+     * Replaces any line breaks in a string
+     * @param  {String} str - String containing courseMaterials or estimatedTime info
+     * @returns {string} returns a new string with line breaks removed
+     */
     trim = (str) => {
         return str.replace(/(\r\n|\n|\r)/gm,"");
     }
 
+    /**
+     * Tests a value in this.state and returns a boolean
+     * @param  {string} InputName - name assigned to the input e.g. 'description'
+     * @returns {boolean} 
+     */
     validateInput = (inputName) => {
         const courseTitle = this.state.title;
         const courseEstimatedTime = this.state.estimatedTime;
