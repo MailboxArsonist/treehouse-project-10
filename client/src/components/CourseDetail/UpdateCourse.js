@@ -20,6 +20,9 @@ class UpdateCourse extends Component {
               .then(result => {
                 const { title, description, estimatedTime, materialsNeeded } = result.data;
                 const user = result.data.user._id;
+                if(user !== this.context.userId){
+                    return this.props.history.push('/forbidden')
+                }
                 this.setState({
                   loading : false,
                   title,
@@ -122,7 +125,7 @@ class UpdateCourse extends Component {
     }
 
     render(){
-
+        console.log(this.context.location);
         //what do i need to do
         //1. handler on each input, setState with input value.
         //2. handler on form, prevent default
