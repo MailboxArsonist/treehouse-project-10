@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 //import course component
 import Course from './Course';
+import {UserContext} from '../context/UserProvider';
 
 
 class Courses extends Component {
@@ -13,6 +14,7 @@ class Courses extends Component {
   }
 
   componentWillMount() {
+    this.context.updateLocation('/');
     this.setState({loading : true});
     axios.get('http://localhost:5000/api/courses')
           .then(results => {
@@ -21,9 +23,6 @@ class Courses extends Component {
               courses,
               loading : false
             })
-          })
-          .then(courses => {
-            console.log(this.state.courses[0].title)
           })
           .catch(err => console.log(err))
   }
@@ -56,4 +55,5 @@ class Courses extends Component {
     );
   }
 }
+Courses.contextType = UserContext;
 export default Courses;

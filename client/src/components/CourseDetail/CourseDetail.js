@@ -7,6 +7,8 @@ import ActionBar from './ActionBar';
 import CourseContent from './CourseContent';
 import CourseMaterial from './CourseMaterial';
 
+import {UserContext} from '../../context/UserProvider';
+
 class CourseDetail extends Component {
     state = {
         loading : true,
@@ -15,6 +17,7 @@ class CourseDetail extends Component {
     
       componentDidMount() {
         const query = this.props.match.params.id;
+        this.context.updateLocation(`/courses/${query}`);
         axios.get(`http://localhost:5000/api/courses/${query}`)
               .then(result => {
                 this.setState({
@@ -52,5 +55,5 @@ class CourseDetail extends Component {
         )
       }
 }
-
+CourseDetail.contextType = UserContext;
 export default CourseDetail;
