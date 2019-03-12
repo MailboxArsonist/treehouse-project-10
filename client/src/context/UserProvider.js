@@ -4,12 +4,15 @@ import { withCookies } from 'react-cookie';
 export const UserContext = React.createContext();
 
 class UserProvider extends Component {
+  //need locations for courses, createcourse updatecourse
     state = {
         authenticated : null,
         username : null,
         password : null,
         firstName : null,
-        lastName : null
+        lastName : null,
+        userId : null,
+        location : '/'
       }
       //set the state to the authenticated user && set the cookie
       signIn = (username, password, firstName, lastName, userId, authenticated) => {
@@ -53,9 +56,14 @@ class UserProvider extends Component {
           password: null,
           firstName : null,
           lastName : null,
-          userId : null
+          userId : null,
+          location : '/'
         })
-        cookies.remove('user');
+        cookies.remove('user', { path: '/' });
+      }
+
+      updateLocation = (pathname) => {
+        this.setState({location : pathname});
       }
 
     render(){
@@ -72,7 +80,8 @@ class UserProvider extends Component {
             <UserContext.Provider value={{
                 ...userInfo,
                 signIn : this.signIn,
-                signOut : this.signOut
+                signOut : this.signOut,
+                updateLocation : this.updateLocation
             }}>
                 {this.props.children}
             </UserContext.Provider>
