@@ -24,7 +24,7 @@ class UserSignIn extends Component {
 		//check that the user has entered input in both inputs
 		if (emailAddress.length > 0 && password.length > 0) {
 			//all good, make the request
-			axios.get("http://localhost:5000/api/users", {
+			axios.get("/api/users", {
 					auth: {
 						username: emailAddress,
 						password: password

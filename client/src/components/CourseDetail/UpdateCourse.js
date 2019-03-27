@@ -19,7 +19,7 @@ class UpdateCourse extends Component {
      */
     componentWillMount() {
         const courseId = this.props.match.params.id;
-        axios.get(`http://localhost:5000/api/courses/${courseId}`)
+        axios.get(`/api/courses/${courseId}`)
               .then(result => {
                 const { title, description, estimatedTime, materialsNeeded } = result.data;
                 const user = result.data.user._id;

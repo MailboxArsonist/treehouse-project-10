@@ -6,9 +6,10 @@ const morgan = require('morgan');
 const cors = require('cors');
 const router = require('./routes/routes.js');
 const mongoose = require('mongoose');
+const path = require('path');
 
 //connect to db 
-mongoose.connect("mongodb://localhost:27017/fsjstd-restapi", { useNewUrlParser: true });
+mongoose.connect("mongodb://<dbuser>:<dbpassword>@ds125526.mlab.com:25526/heroku_l112v8f6", { useNewUrlParser: true });
 //mongo connection object
 const db = mongoose.connection;
 
@@ -17,6 +18,8 @@ const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'tr
 
 // create the Express app
 const app = express();
+
+app.use(express.static('client/build'));
 
 // app.use(cors())
 app.use(cors({                                                                 
@@ -74,6 +77,11 @@ app.use((err, req, res, next) => {
     message: err.message,
     error: {},
   });
+});
+
+// If no API routes are hit, send the React app
+router.use(function(req, res) {
+	res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 // set our port

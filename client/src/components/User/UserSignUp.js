@@ -25,7 +25,7 @@ class UserSignUp extends Component {
         //call validators
         if(this.isValid('firstName') && this.isValid('lastName') && this.isValid('emailAddress') && this.isValid('password') && this.isValid('confirmPassword')){
             //all good, make the request
-            axios.post('http://localhost:5000/api/users', {
+            axios.post('/api/users', {
                 firstName,
                 lastName,
                 emailAddress,

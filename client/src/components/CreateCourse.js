@@ -32,7 +32,7 @@ class CreateCourse extends Component {
                     username,
                     password
                 },
-                url : 'http://localhost:5000/api/courses',
+                url : '/api/courses',
                 data : {
                     title,
                     description,

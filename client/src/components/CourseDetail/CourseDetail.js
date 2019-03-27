@@ -20,7 +20,7 @@ class CourseDetail extends Component {
         const query = this.props.match.params.id;
         this.context.updateLocation(`/courses/${query}`);
         //fetch the courses and update state
-        axios.get(`http://localhost:5000/api/courses/${query}`)
+        axios.get(`/api/courses/${query}`)
               .then(result => {
                 this.setState({
                   course : result.data,

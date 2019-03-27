@@ -11,7 +11,7 @@ const ActionBar = (props) => {
     ** Makes a DELETE req to API then redirects to homepage
     */
     const deleteCourse = () => {
-        axios.delete(`http://localhost:5000/api/courses/${props.courseId}`, {
+        axios.delete(`/api/courses/${props.courseId}`, {
             auth : {
                 username,
                 password

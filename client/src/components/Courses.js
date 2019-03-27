@@ -19,7 +19,7 @@ class Courses extends Component {
     this.setState({loading : true});
 
     //make get request for all courses
-    axios.get('http://localhost:5000/api/courses')
+    axios.get('/api/courses')
           .then(results => {
             const courses = results.data.courses;
             this.setState({
