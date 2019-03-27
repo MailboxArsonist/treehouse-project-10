@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 //connect to db 
-mongoose.connect("mongodb://<dbuser>:<dbpassword>@ds125526.mlab.com:25526/heroku_l112v8f6", { useNewUrlParser: true });
+mongoose.connect("mongodb://test:password93@ds125526.mlab.com:25526/heroku_l112v8f6", { useNewUrlParser: true });
 //mongo connection object
 const db = mongoose.connection;
 
