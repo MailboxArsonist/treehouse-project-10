@@ -7,9 +7,12 @@ const cors = require('cors');
 const router = require('./routes/routes.js');
 const mongoose = require('mongoose');
 const path = require('path');
+const MONGODB_URI = process.env.MONGODB_URI;
 
 //connect to db 
-mongoose.connect("mongodb://test:password93@ds125526.mlab.com:25526/heroku_l112v8f6", { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
+
 //mongo connection object
 const db = mongoose.connection;
 
